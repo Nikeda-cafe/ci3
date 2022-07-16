@@ -7,14 +7,16 @@ class TaskModel extends CI_Model{
         $this->load->database();
     }
 
-    public function getList($id = null)
+    public function getList($userId = null)
     {
-        $query = $this->db->select('id,task_name')
-                            ->from('task')
-                            ->where('id',$id)
+        $query = $this->db->select('t.id,t.task_name,t.user_id,u.name')
+                            ->from('task as t')
+                            ->join('user as u','u.id = t.user_id','left')
+                            ->where('user_id',$userId)
                             ->get();
 
         echo $this->db->last_query();
+        var_dump($query->result_array());
         return $query->result_array();
         
     }

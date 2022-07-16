@@ -1,12 +1,13 @@
 <?php
 
 class Task extends CI_Controller{
-    public function index($id = null)
+    public function index($userId = null)
     {
         $this->load->model('TaskModel');
         $this->load->library('form_validation');
 
         $data['create'] = '';
+        $data['user_id'] = $userId;
         
         if($this->input->post()){
             $this->form_validation->set_rules('task','タスク','required|min_length[5]|max_length[20]');
@@ -19,7 +20,7 @@ class Task extends CI_Controller{
         }
         
 
-        $data['tasks'] = $this->TaskModel->getList($id); 
+        $data['tasks'] = $this->TaskModel->getList($userId); 
 
         $this->load->view('task/task',$data);
     }
