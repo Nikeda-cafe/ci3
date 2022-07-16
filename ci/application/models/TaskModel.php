@@ -9,7 +9,7 @@ class TaskModel extends CI_Model{
 
     public function getList($userId = null)
     {
-        $query = $this->db->select('t.id,t.task_name,t.user_id,u.name')
+        $query = $this->db->select('t.id,t.task_name,t.user_id,u.name as user_name')
                             ->from('task as t')
                             ->join('user as u','u.id = t.user_id','left')
                             ->where('user_id',$userId)
@@ -21,10 +21,11 @@ class TaskModel extends CI_Model{
         
     }
 
-    public function create($taskName)
+    public function create($post)
     {
         $insertData = array(
-            'task_name' => $taskName
+            'task_name' => $post['task'],
+            'user_id' => $post['user_id'],
         );
         $this->db->insert('task',$insertData);
     }

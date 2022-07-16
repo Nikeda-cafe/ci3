@@ -12,7 +12,7 @@ class Task extends CI_Controller{
         if($this->input->post()){
             $this->form_validation->set_rules('task','タスク','required|min_length[5]|max_length[20]');
             if($this->form_validation->run()){
-                $this->TaskModel->create($this->input->post('task'));
+                $this->TaskModel->create($this->input->post());
                 $data['create'] = true;
             }else{
                 $data['create'] = false;
