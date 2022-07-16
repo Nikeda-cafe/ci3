@@ -9,5 +9,8 @@
 <body>
     <?php var_dump($tasks); ?>
     <h1>user</h1>
+    <?php foreach($tasks as $task): ?>
+        <p><?php echo $task['task_name']; ?></p>
+    <?php endforeach; ?>
 </body>
 </html>

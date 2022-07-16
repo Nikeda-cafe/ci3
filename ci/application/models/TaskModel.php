@@ -7,15 +7,24 @@ class TaskModel extends CI_Model{
         $this->load->database();
     }
 
-    public function getList()
+    public function getList($id = null)
     {
-        $query = $this->db->get('task');
+        $query = $this->db->select('id,task_name')
+                            ->from('task')
+                            ->where('id',$id)
+                            ->get();
+
         echo $this->db->last_query();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }else{
-            return array();
-        }
+        return $query->result_array();
+        
+    }
+
+    public function create($taskName)
+    {
+        $insertData = array(
+            'task_name' => $taskName
+        );
+        $this->db->insert('task',$insertData);
     }
 }
 
